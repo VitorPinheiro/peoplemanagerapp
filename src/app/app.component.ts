@@ -76,9 +76,8 @@ export class AppComponent implements OnInit {
     console.log(key);
     const results: People[] = [];
     for (const person of this.people) {
-      if (person._firstName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || person._fullName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || person._lastVibration.toDateString().indexOf(key.toLowerCase()) !== -1) {
+      if (person._firstName?.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || person._fullName?.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         results.push(person);
       }
     }

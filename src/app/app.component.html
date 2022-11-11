@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse" id="navbarColor02">     
      <form class="form-inline my-2 my-lg-0">
         <input type="search" (ngModelChange)="searchPeople(key.value)" #key="ngModel" ngModel
-         name="key" id="searchName" class="form-control mr-sm-2" placeholder="Procurar pessoa..." required>
+         name="key" id="searchName" class="form-control mr-sm-2" placeholder="Procurar por nome..." required>
      </form>
   </div>
 </nav>
@@ -19,7 +19,7 @@
     <div class="row align-items-center">
         <div class="col-md-6">
             <div class="mb-3">
-                <h5 class="card-title">Lista de pessoas <span class="text-muted fw-normal ms-2">(834)</span></h5>
+                <h5 class="card-title">Lista de pessoas <span class="text-muted fw-normal ms-2">({{people?.length}})</span></h5>
             </div>
         </div>
         <div class="col-md-6">
@@ -81,20 +81,21 @@
                                 </th>
                                 <td>
                                   <!-- Show image -->
+                                  <!-- 
                                   <div *ngIf="person?._imageUrl;then show_image else show_standard" class="avatar-sm d-inline-block me-2"></div>
                                   <ng-template #show_image><img src="{{person?._imageUrl}}" alt="" class="avatar-sm rounded-circle me-2" /></ng-template>
                                   <ng-template #show_standard>
                                     <div class="avatar-sm d-inline-block me-2">
                                       <div class="avatar-title bg-soft-primary rounded-circle text-primary"><i class="mdi mdi-account-circle m-0"></i></div>
                                     </div>
-                                  </ng-template>
+                                  </ng-template> --> 
                                   
                                   <!-- Show full name -->
                                   <a href="#" class="text-body">{{person?._fullName}}</a>
                                 </td>
                                 <td>
                                   <!-- Show last vibration -->
-                                  {{person?._lastVibration}}
+                                  {{person?._lastVibration | date:'dd/MM/y'}}
                                 </td>
                                 <td>
                                     <!-- Actions -->
@@ -113,58 +114,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="ps-4">
-                                    <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck2" /><label class="form-check-label" for="contacusercheck2"></label></div>
-                                </th>
-                                <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" /><a href="#" class="text-body">Marion Walker</a></td>                                
-                                <td>MarionWalker@minible.com</td>
-                                <td>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item">
-                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                                        </li>
-                                        <li class="list-inline-item dropdown">
-                                            <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-vertical-rounded"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="ps-4">
-                                    <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck3" /><label class="form-check-label" for="contacusercheck3"></label></div>
-                                </th>
-                                <td>
-                                    <div class="avatar-sm d-inline-block me-2">
-                                        <div class="avatar-title bg-soft-primary rounded-circle text-primary"><i class="mdi mdi-account-circle m-0"></i></div>
-                                    </div>
-                                    <a href="#" class="text-body">Frederick White</a>
-                                </td>                                
-                                <td>FrederickWhite@minible.com</td>
-                                <td>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item">
-                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                                        </li>
-                                        <li class="list-inline-item dropdown">
-                                            <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-vertical-rounded"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>                            
+                            </tr>                                                        
                         </tbody>
                     </table>
                 </div>
@@ -173,7 +123,7 @@
     </div>
     <div class="row g-0 align-items-center pb-4">
         <div class="col-sm-6">
-            <div><p class="mb-sm-0">Showing 1 to 10 of 57 entries</p></div>
+            <div><p class="mb-sm-0">Showing 1 até 10 de {{people?.length}} resultados</p></div>
         </div>
         <div class="col-sm-6">
             <div class="float-sm-end">
@@ -218,12 +168,12 @@
           </div>
           <div class="form-group">
              <label for="phone">Última vibração</label>
-             <input type="text" ngModel name="_lastVibration" class="form-control" id="_lastVibration" placeholder="Última vibração">
+             <input type="date" ngModel name="_lastVibration" class="form-control" id="_lastVibration" placeholder="Última vibração">
           </div>
-          <div class="form-group">
+          <!--<div class="form-group">
              <label for="phone">Image URL</label>
              <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
-          </div>
+          </div> -->
           <div class="modal-footer">
              <button type="button" id="add-person-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
@@ -240,7 +190,7 @@
   <div class="modal-dialog" role="document">
      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title" id="updatePersonModalLabel">Editar Pessoa {{editPerson?._firstName}}</h5>
+           <h5 class="modal-title" id="updatePersonModalLabel">Editar informações de {{editPerson?._firstName}}</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
            </button>
@@ -260,7 +210,9 @@
               <div class="form-group">
                  <label for="phone">Última vibração</label>
                  
-                 <input matInput [matDatepicker]="picker" ngModel="{{editPerson?._lastVibration}}" name="_lastVibration" class="form-control" id="_lastVibration">
+                 <input type="date" ngModel="{{editPerson?._lastVibration}}" name="_lastVibration" class="form-control" id="_lastVibration" placeholder="Última vibração">
+
+                 <!-- <input matInput [matDatepicker]="picker" ngModel="{{editPerson?._lastVibration}}" name="_lastVibration" class="form-control" id="_lastVibration">
                  <mat-hint>DD/MM/YYYY</mat-hint>
                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                  <mat-datepicker #picker></mat-datepicker>
@@ -271,13 +223,13 @@
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
+                  </mat-form-field> -->
                   
               </div>              
-              <div class="form-group">
+              <!--<div class="form-group">
                  <label for="phone">Foto</label>
                  <input type="text" ngModel="{{editPerson?._imageUrl}}" name="_imageUrl" class="form-control" id="_imageUrl" placeholder="Foto">
-              </div>
+              </div> -->
               <!-- Precisa do ID pra ser um update, se nao ele salva um novo. -->
               <input type="hidden" ngModel="{{editPerson?._id}}" name="_id" class="form-control" id="_id" placeholder="id">
               <div class="modal-footer">
