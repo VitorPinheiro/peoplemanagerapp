@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --c production",
+    "deploy2": "npm run build -- --c production",
+    "live-server": "cd dist/peoplemanagerapp && live-server --port=4200 --host=localhost"
   },
   "private": true,
   "dependencies": {

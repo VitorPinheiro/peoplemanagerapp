@@ -1,19 +1,37 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable, NgModule } from '@angular/core';
 import { People } from './people';
 import { PeopleService } from './people.service';
 import { NgForm } from '@angular/forms';
+import { PageEvent, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 
+/**
+ * 
+ * https://clarity.design/
+ * 
+ * https://www.npmjs.com/package/live-server
+ * 
+ */
+
+type PeopleExtension = People & {Action?: String, Delete?:String}
+//type PeopleExtension2 = {Action: String}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  public people: People[];
+export class AppComponent implements OnInit  {
+  public people: PeopleExtension[]; //People[];
   public editPerson: People;
   public deletePerson: People;
+
+  public pageSize = 20;
+  public pageSizeOptions: number[] = [5, 10, 25, 100]
+  public pageEvent: PageEvent;
+  public resultsLength: number;
+
+  public displayedColumns = ['_fullName', '_lastVibration', 'Action', 'Delete'];
 
   constructor(private peopleService: PeopleService) { }
 
@@ -25,6 +43,7 @@ export class AppComponent implements OnInit {
     this.peopleService.getPeople().subscribe(
       (response: People[]) => {
         this.people = response;
+        this.resultsLength = this.people.length;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -114,3 +133,4 @@ export class AppComponent implements OnInit {
     button.click();
   }
 }
+
